@@ -1,18 +1,17 @@
 ---
--name: Apache server installing
- apt:
+- name: Apache server installing
+  apt:
     name: apache2
     state: present
 
--name: changing the httpd port to 8080 from 80 
-   lineinfile:
+- name: changing the httpd port to 8080 from 80 
+  lineinfile:
     path: /etc/apache2/ports.conf
-    egexp: '^Listen'
+    regexp: '^Listen'
     line: Listen 8080
  
--name: copying webpage from ansible to server
+- name: copying webpage from ansible to server
   copy:
-    src: copy:
     src: /home/ansible/playbooks/roles/web/files/index.html
     dest: /var/www/html
     owner: root

@@ -1,12 +1,12 @@
 - name: Install and configure web server
-  hosts: web
+  hosts: webserver
   become: true
   user: ansible
   gather_facts: no
   become_method: sudo
   vars_files:
-          - env_vars/all          
-roles:
+   - group_vars/all     
+  roles:
    - role: prelimnary
    - role: hardening
    - role: web

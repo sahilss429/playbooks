@@ -1,13 +1,14 @@
 ---
 - name: Run apt-get update for the first time
   apt:
-      update_cache: yes
       pkg:
       - ntp
+      - python
       - vim
       - net-tools
       - sysstat
       - htop
+      update_cache: yes
  
 - name: configure ntp server
   template: 
