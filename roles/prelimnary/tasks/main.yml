@@ -1,0 +1,24 @@
+---
+- name: Run apt-get update for the first time
+  apt:
+      update_cache: yes
+      pkg:
+      - ntp
+      - vim
+      - net-tools
+      - sysstat
+      - htop
+ 
+- name: configure ntp server
+  template: 
+        dest: /etc/ntp.com
+        src: ntp.conf.j2
+        owner: root
+        group : root
+- name: restart ntp service
+  service:
+     name: ntp
+     state: restarted
+     enabled: yes
+
+
