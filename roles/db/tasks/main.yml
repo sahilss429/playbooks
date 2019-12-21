@@ -1,5 +1,5 @@
 ---
--name: Installing mysql server
- apt:
+- name: Installing mysql server
+  apt:
     name: mysql-server
     state: present
