@@ -1,0 +1,26 @@
+---
+- name: installing mesos
+  apt:
+   name: mesos 
+   state: latest
+   update cache: yes
+
+- name: installing marathon
+  apt:
+   name: marathon
+   state: latest
+   update cache: yes
+
+- name: configuring mesos--setting quoram
+   template:
+    src: 'quoram'
+    dest: '{etc/mesos-master/quoram}'
+
+- name: configuration of mesos IP
+   command: echo {{groups['mesos'].index(inventory_hostname)}} > '/etc/mesos-master/ip'
+
+- name: configuration of Mesos hostname
+   command: echo {{groups['mesos'].index(inventory_hostname)}}' > '/etc/mesos-master/hostname'
+	
+
+

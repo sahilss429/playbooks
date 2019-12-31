@@ -1,0 +1,21 @@
+---
+- name: Adding mesosphere key
+  command: sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv E56151BF &&
+           DISTRO=$(lsb_release -is | tr '[:upper:]' '[:lower:]') &&
+           CODENAME=$(lsb_release -cs)
+
+- name: Adding mesosphere Repositories
+  command: echo "deb http://repos.mesosphere.com/${DISTRO} ${CODENAME} main" | sudo tee /etc/apt/sources.list.d/mesosphere.list
+
+- name: installing java version 8
+  apt:
+   name: openjdk-8-jre-headless
+   state: latest
+
+- name: Apt-get update
+  apt:
+   update_cache: yes
+
+- name: Remove useless packages from the cache
+  apt:
+    autoclean: yes 
