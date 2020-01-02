@@ -3,21 +3,25 @@
   apt:
    name: mesos 
    state: latest
-   update cache: yes
 
-- name: 
-  lineinfile:
-   path: /etc/mesos/zk
-   regexp: '^zk://localhost:2181/mesos'
-   line: zk://{{groups['zookeper'].index(inventory_hostname)}}:2181,{{groups['zookeper'].index(inventory_hostname)}}:2181,{{groups['zookeper'].index(inventory_hostname)}}:2181/mesos
+- name: installing marathon
+  apt:
+   name: marathon
+   state: latest
+  
+- name: Set ZooKeeper URL # used for leader election amongst masters
+  copy:
+   content: "{{zookeeper_url}}"
+   dest: /etc/mesos/zk
 
-- name: Create myid file
+- name: Create zookeeper myid file
   template:
-    src: 'myid'
-    dest: '/var/lib/zookeeper/myid'
+   src: myid.j2
+   dest: /etc/zookeeper/conf/myid
 
-name: Create configuration file
+
+- name: Create configuration file
   template:
-    src: 'zoo.cfg'
-    dest: '/etc/zookeeper/conf/zoo.cfg'
+   src: 'zoo.cfg.j2'
+   dest: '/etc/zookeeper/conf/zoo.cfg'
    

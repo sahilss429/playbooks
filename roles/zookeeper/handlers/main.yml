@@ -1,4 +1,6 @@
-me: restart zookeper
-      service:
-        name: zookeeper
-        state: restarted
+- name: restart zookeper
+  service:
+   name: zookeeper
+   state: restarted
+
+
