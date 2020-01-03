@@ -8,4 +8,3 @@
    - group_vars/all
   roles:
    - role: marathon
-   - role: cleanup
