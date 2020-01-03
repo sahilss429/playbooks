@@ -1,4 +1,4 @@
-- name: Install and configure zookeper
+- name: Install and configure mesos
   hosts: 192.168.1.81
   become: true
   user: ansible
@@ -7,6 +7,4 @@
   vars_files:
    - group_vars/all
   roles:
-   - role: preliminary
-   - role: zookeeper
-   - role: cleanup
+   - role: mesos-slave

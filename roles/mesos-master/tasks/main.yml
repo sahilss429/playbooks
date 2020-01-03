@@ -1,0 +1,24 @@
+---
+
+- name: Disable the Mesos Slave service
+  copy:
+    content: "manual"
+    dest: /etc/init/mesos-slave.override
+
+- name: Set Mesos Master quorum count
+  copy:
+   content: "{{mesos_quorum_count}}"
+   dest: /etc/mesos-master/quorum
+
+- name: Set Mesos Master ip
+  copy:
+   content: "{{mesos_local_address}}"
+   dest: /etc/mesos-master/ip
+    
+- name: Set Mesos Master hostname
+  copy:
+   content: "{{mesos_local_address}}"
+   dest: /etc/mesos-master/hostname
+
+
+

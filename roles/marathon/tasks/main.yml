@@ -1,0 +1,32 @@
+---
+
+- name: Disable the Mesos Slave service
+  copy:
+    content: "manual"
+    dest: /etc/init/mesos-slave.override
+
+- name: Creates directory
+  file:
+    path: /etc/marathon/conf
+    state: directory
+
+- name: Set marathon hostname
+  copy:
+   content: "{{mesos_local_address}}"
+   dest: /etc/marathon/conf/hostname
+
+- name: Set marathon URL # used for leader election amongst masters
+  copy:
+   content: "{{zookeeper_url}}"
+   dest: /etc/marathon/conf/master
+
+
+- name: copying zk file to marathon
+  copy:
+   content: "{{marathon_url}}"
+   dest: /etc/marathon/conf/zk
+- name: writing marathon default file
+  template:
+   src: marathon.j2
+   dest: /etc/default/marathon
+

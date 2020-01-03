@@ -1,0 +1,6 @@
+---
+- name: restart mesos
+  service:
+   name: mesos-slave
+   state: restarted
+

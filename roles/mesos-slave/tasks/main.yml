@@ -1,0 +1,50 @@
+---
+
+- name: installing mesos slave
+  apt:
+   name: mesos 
+   state: latest
+
+- name: Disable the Mesos master service
+  copy:
+    content: "manual"
+    dest: /etc/init/mesos-master.override
+
+- name: Disable the zookeeper service
+  copy:
+    content: "manual"
+    dest: /etc/init/zookeeper.override
+
+- name: Set Mesos Slave ip
+  copy:
+   content: "{{slave_local_address}}"
+   dest: /etc/mesos-slave/ip
+
+- name: Set Mesos slave hostname
+  copy:
+   content: "{{slave_local_address}}"
+   dest: /etc/mesos-slave/hostname
+
+- name: Insert/Update configuration block in /etc/mesos-slave/image_providers
+  blockinfile:
+    path: /etc/mesos-slave/image_providers
+    block: |
+      DOCKER
+
+- name:  Insert/Update configuration block in /etc/mesos-slave/containerizers
+  blockinfile:
+    path: /etc/mesos-slave/containerizers
+    block: |
+      docker,mesos
+
+- name: Insert/Update configuration block in /etc/mesos-slave/isolation
+  blockinfile:
+    path: /etc/mesos-slave/isolation
+    block: |
+      filesystem/linux,docker/runtime
+- name: installing Docker
+  apt: 
+   name: docker-ce
+   state: latest
+   update cache: yes
+
