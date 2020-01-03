@@ -31,8 +31,7 @@
    src: marathon.j2
    dest: /etc/default/marathon
 
-- name: update /etc/hosts file
-  blockinfile:
-    dest: /etc/hosts
-    content: "{{ lookup('template', 'templates/hosts.j2') }}"
-    state: present
+- name: restart marathon
+  service:
+   name: marathon
+   state: restarted

@@ -21,4 +21,7 @@
    dest: /etc/mesos-master/hostname
 
 
-
+- name: restart mesos
+  service:
+   name: mesos-master
+   state: restarted

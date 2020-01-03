@@ -25,3 +25,7 @@
    src: 'zoo.cfg.j2'
    dest: '/etc/zookeeper/conf/zoo.cfg'
    
+- name: restart zookeeper
+  service:
+   name: zookeeper
+   state: restarted
