@@ -35,17 +35,17 @@
       - /etc/consul.d
       - /opt/consul
 
-- name: Create consul.hcl
+- name: Create consul.json
   template:
-    path: consul.hcl.j2
+    path: consul.json.j2
     state: touch
     mode: '0640'
     owner: consul
     group: consul
 
-- name: Create server.hcl
+- name: Create server.json
   template:
-    path: server.hcl.j2
+    path: server.json.j2
     state: touch
     mode: '0640'
     owner: consul
