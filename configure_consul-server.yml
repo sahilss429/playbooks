@@ -1,5 +1,5 @@
 - name: Install and configure consul server
-  hosts: zookeeper
+  hosts: consul
   become: true
   user: ansible
   gather_facts: no
@@ -7,4 +7,4 @@
   vars_files:
    - group_vars/all
   roles:
-   - role: consul
+   - role: consul-server

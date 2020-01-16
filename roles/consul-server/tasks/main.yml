@@ -22,7 +22,7 @@
 - name: writing systemd file for consul
   copy:
     src: consul.service
-    dest: /lib/systemd/system/
+    dest: /etc/systemd/system/
 
 - name: Create consul.d directory
   file:
@@ -35,22 +35,14 @@
       - /etc/consul.d
       - /opt/consul
 
-- name: Create consul.json
+- name: Create server-config.json
   template:
-    path: consul.json.j2
+    src: server-config.json.j2
+    dest: /etc/consul.d/server-config.json
     state: touch
     mode: '0640'
     owner: consul
     group: consul
-
-- name: Create server.json
-  template:
-    path: server.json.j2
-    state: touch
-    mode: '0640'
-    owner: consul
-    group: consul
-
 
 - name: restart consul
   service:
